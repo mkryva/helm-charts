@@ -1,5 +1,9 @@
 # Datadog changelog
 
+## 2.4.32
+
+* Increase DCA cluster-name limit from 40 characters to 80
+
 ## 2.4.31
 
 * Support adding labels to the Agent pods and daemonset via `agents.additionalLabels`.
