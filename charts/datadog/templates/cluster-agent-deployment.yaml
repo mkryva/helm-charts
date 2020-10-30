@@ -151,8 +151,12 @@ spec:
             value: "kube_endpoints kube_services"
           {{- end }}
           {{- if .Values.datadog.clusterName }}
-          {{- if not (regexMatch "^([a-z]([a-z0-9\\-]{0,78}[a-z0-9])?\\.)*([a-z]([a-z0-9\\-]{0,78}[a-z0-9])?)$" .Values.datadog.clusterName) }}
-          {{- fail "Your `clusterName` isn’t valid. It must be dot-separated tokens where a token start with a lowercase letter followed by up to 39 lowercase letters, numbers, or hyphens and cannot end with a hyphen."}}
+          {{- $length := len .Values.datadog.clusterName}}
+          {{- if (gt $length 80)}}
+          {{- fail "Your `clusterName` isn’t valid it has to be below 81 chars."}}
+          {{- end}}
+          {{- if not (regexMatch "^([a-z]([a-z0-9\\-]*[a-z0-9])?\\.)*([a-z]([a-z0-9\\-]*[a-z0-9])?)$" .Values.datadog.clusterName) }}
+          {{- fail "Your `clusterName` isn’t valid. It must be dot-separated tokens where a token start with a lowercase letter followed by lowercase letters, numbers, or hyphens, can only end with a with [a-z0-9] and has to be below 80 chars."}}
           {{- end}}
           - name: DD_CLUSTER_NAME
             value: {{ .Values.datadog.clusterName | quote }}

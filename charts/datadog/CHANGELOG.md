@@ -2,7 +2,8 @@
 
 ## 2.4.32
 
-* Increase DCA cluster-name limit from 40 characters to 80
+* Introduce overall cluster-name limit of 80
+* Remove character limit of single parts of the cluster-name
 
 ## 2.4.31
 
